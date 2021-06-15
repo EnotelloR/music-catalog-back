@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3a88e656957c49f885daafa517e1e228" Name="Diagram1">
+        <EntityTypeShape EntityType="MusicCatalogNew2Model.Composition" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicCatalogNew2Model.Compositor" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicCatalogNew2Model.Genre" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicCatalogNew2Model.Performer" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicCatalogNew2Model.Playlist" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicCatalogNew2Model.RecordCompany" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicCatalogNew2Model.UserA" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="MusicCatalogNew2Model.FK_Composition_Compositor" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicCatalogNew2Model.FK_Composition_Genre" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicCatalogNew2Model.FK_Composition_Performer" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicCatalogNew2Model.FK_Composition_RecordCompany" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicCatalogNew2Model.FK_Playlist_Composition" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

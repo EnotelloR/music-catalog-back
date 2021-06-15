@@ -1,0 +1,34 @@
+﻿@model WebApi2.Models.RecordCompany
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RecordCompany</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RecordCompanyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecordCompanyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecordCompanyAdress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecordCompanyAdress)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

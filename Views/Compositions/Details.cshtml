@@ -1,0 +1,98 @@
+﻿@model WebApi2.Models.Composition
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Composition</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CompositionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompositionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MediaType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MediaType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecordDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecordDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Views)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Views)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImgUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImgUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Compositor.CompositorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Compositor.CompositorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre.GenreName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre.GenreName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Performer.PerformerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Performer.PerformerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecordCompany.RecordCompanyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecordCompany.RecordCompanyName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

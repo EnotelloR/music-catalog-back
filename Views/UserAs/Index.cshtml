@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WebApi2.Models.UserA>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserPassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserRole)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserFullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserAdress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserPhoneNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserPassword)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserRole)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserFullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserAdress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserPhoneNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

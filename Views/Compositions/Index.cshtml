@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WebApi2.Models.Composition>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CompositionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MediaType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Views)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImgUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Compositor.CompositorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre.GenreName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Performer.PerformerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordCompany.RecordCompanyName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompositionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MediaType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Views)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImgUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Compositor.CompositorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre.GenreName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Performer.PerformerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordCompany.RecordCompanyName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
