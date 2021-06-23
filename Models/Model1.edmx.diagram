@@ -17,6 +17,7 @@
         <AssociationConnector Association="MusicCatalogNew2Model.FK_Composition_Performer" ManuallyRouted="false" />
         <AssociationConnector Association="MusicCatalogNew2Model.FK_Composition_RecordCompany" ManuallyRouted="false" />
         <AssociationConnector Association="MusicCatalogNew2Model.FK_Playlist_Composition" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicCatalogNew2Model.FK_Playlist_UserA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

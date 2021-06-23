@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WebApi2.Models;
@@ -74,6 +75,7 @@ namespace WebApi2.Controllers
         [ResponseType(typeof(UserA))]
         public IHttpActionResult PostUserA(UserA userA)
         {
+            userA.UserRole = "User";
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

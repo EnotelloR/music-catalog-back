@@ -9,6 +9,7 @@
 
 namespace WebApi2.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -19,5 +20,7 @@ namespace WebApi2.Models
         public int CompositionID { get; set; }
     
         public virtual Composition Composition { get; set; }
+        [JsonIgnore]
+        public virtual UserA UserA { get; set; }
     }
 }

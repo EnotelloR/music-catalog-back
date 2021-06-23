@@ -9,11 +9,18 @@
 
 namespace WebApi2.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
     public partial class UserA
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserA()
+        {
+            this.Playlists = new HashSet<Playlist>();
+        }
+    
         public int ID { get; set; }
         public string UserPassword { get; set; }
         public string UserRole { get; set; }
@@ -21,5 +28,9 @@ namespace WebApi2.Models
         public string UserFullName { get; set; }
         public string UserAdress { get; set; }
         public string UserPhoneNumber { get; set; }
+
+        [JsonIgnore]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Playlist> Playlists { get; set; }
     }
 }

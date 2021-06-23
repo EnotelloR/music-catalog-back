@@ -9,6 +9,7 @@ namespace WebApi2.Provider
 {
     public class OauthProvider : OAuthAuthorizationServerProvider
     {
+        UserA currentUser;
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             await Task.Run(() => context.Validated());
@@ -22,6 +23,7 @@ namespace WebApi2.Provider
                 if (db != null)
                 {
                     var user = db.UserAs.Where(o => o.UserName == context.UserName && o.UserPassword == context.Password).FirstOrDefault();
+                    currentUser = db.UserAs.Where(o => o.UserName == context.UserName && o.UserPassword == context.Password).FirstOrDefault();
                     if (user != null)
                     {
                         identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()));
@@ -41,6 +43,13 @@ namespace WebApi2.Provider
                 }
                 return;
             }
+        }
+        public override Task TokenEndpointResponse(OAuthTokenEndpointResponseContext context)
+        {
+            context.AdditionalResponseParameters.Add("role", currentUser.UserRole);
+            context.AdditionalResponseParameters.Add("ID", currentUser.ID);
+            context.AdditionalResponseParameters.Add("user_name", currentUser.UserName);
+            return base.TokenEndpointResponse(context);
         }
     }
 }

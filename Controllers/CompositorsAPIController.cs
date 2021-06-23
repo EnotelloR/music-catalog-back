@@ -12,45 +12,45 @@ using WebApi2.Models;
 
 namespace WebApi2.Controllers
 {
-    public class CompositionsAPIController : ApiController
+    public class CompositorsAPIController : ApiController
     {
         private DataContext db = new DataContext();
 
-        // GET: api/CompositionsAPI
-        public IQueryable<Composition> GetCompositions()
+        // GET: api/CompositorsAPI
+        public IQueryable<Compositor> GetCompositors()
         {
-            return db.Compositions.AsNoTracking();
+            return db.Compositors;
         }
 
-        // GET: api/CompositionsAPI/5
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult GetComposition(int id)
+        // GET: api/CompositorsAPI/5
+        [ResponseType(typeof(Compositor))]
+        public IHttpActionResult GetCompositor(int id)
         {
-            Composition composition = db.Compositions.Find(id);
-            if (composition == null)
+            Compositor compositor = db.Compositors.Find(id);
+            if (compositor == null)
             {
                 return NotFound();
             }
 
-            return Ok(composition);
+            return Ok(compositor);
         }
 
-        // PUT: api/CompositionsAPI/5
+        // PUT: api/CompositorsAPI/5
         [Authorize(Roles = "Admin")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutComposition(int id, Composition composition)
+        public IHttpActionResult PutCompositor(int id, Compositor compositor)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != composition.ID)
+            if (id != compositor.ID)
             {
                 return BadRequest();
             }
 
-            db.Entry(composition).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(compositor).State = System.Data.Entity.EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace WebApi2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompositionExists(id))
+                if (!CompositorExists(id))
                 {
                     return NotFound();
                 }
@@ -71,37 +71,37 @@ namespace WebApi2.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/CompositionsAPI
-        [Authorize]
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult PostComposition(Composition composition)
+        // POST: api/CompositorsAPI
+        [Authorize(Roles = "Admin")]
+        [ResponseType(typeof(Compositor))]
+        public IHttpActionResult PostCompositor(Compositor compositor)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Compositions.Add(composition);
+            db.Compositors.Add(compositor);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = composition.ID }, composition);
+            return CreatedAtRoute("DefaultApi", new { id = compositor.ID }, compositor);
         }
 
-        // DELETE: api/CompositionsAPI/5
+        // DELETE: api/CompositorsAPI/5
         [Authorize(Roles = "Admin")]
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult DeleteComposition(int id)
+        [ResponseType(typeof(Compositor))]
+        public IHttpActionResult DeleteCompositor(int id)
         {
-            Composition composition = db.Compositions.Find(id);
-            if (composition == null)
+            Compositor compositor = db.Compositors.Find(id);
+            if (compositor == null)
             {
                 return NotFound();
             }
 
-            db.Compositions.Remove(composition);
+            db.Compositors.Remove(compositor);
             db.SaveChanges();
 
-            return Ok(composition);
+            return Ok(compositor);
         }
 
         protected override void Dispose(bool disposing)
@@ -113,9 +113,9 @@ namespace WebApi2.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CompositionExists(int id)
+        private bool CompositorExists(int id)
         {
-            return db.Compositions.Count(e => e.ID == id) > 0;
+            return db.Compositors.Count(e => e.ID == id) > 0;
         }
     }
 }

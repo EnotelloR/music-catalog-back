@@ -56,6 +56,7 @@
     <Property Name="UserID" Type="Int32" Nullable="false" />
     <Property Name="CompositionID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Composition" Relationship="Self.FK_Playlist_Composition" FromRole="Playlist" ToRole="Composition" />
+    <NavigationProperty Name="UserA" Relationship="MusicCatalogNew2Model.FK_Playlist_UserA" FromRole="Playlist" ToRole="UserA" />
   </EntityType>
   <EntityType Name="RecordCompany">
     <Key>
@@ -77,6 +78,7 @@
     <Property Name="UserFullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="UserAdress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="UserPhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Playlists" Relationship="MusicCatalogNew2Model.FK_Playlist_UserA" FromRole="UserA" ToRole="Playlist" />
   </EntityType>
   <Association Name="FK_Composition_Compositor">
     <End Role="Compositor" Type="Self.Compositor" Multiplicity="1" />
@@ -166,5 +168,21 @@
       <End Role="Composition" EntitySet="Compositions" />
       <End Role="Playlist" EntitySet="Playlists" />
     </AssociationSet>
+    <AssociationSet Name="FK_Playlist_UserA" Association="MusicCatalogNew2Model.FK_Playlist_UserA">
+      <End Role="UserA" EntitySet="UserAs" />
+      <End Role="Playlist" EntitySet="Playlists" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_Playlist_UserA">
+    <End Type="MusicCatalogNew2Model.UserA" Role="UserA" Multiplicity="1" />
+    <End Type="MusicCatalogNew2Model.Playlist" Role="Playlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Playlist">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

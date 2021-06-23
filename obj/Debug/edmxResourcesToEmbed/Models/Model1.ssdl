@@ -128,6 +128,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Playlist_UserA">
+    <End Role="UserA" Type="Self.UserA" Multiplicity="1" />
+    <End Role="Playlist" Type="Self.Playlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Playlist">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="Хранилище MusicCatalogNew2ModelContainer">
     <EntitySet Name="Composition" EntityType="Self.Composition" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Compositor" EntityType="Self.Compositor" Schema="dbo" store:Type="Tables" />
@@ -154,6 +166,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Playlist_Composition" Association="Self.FK_Playlist_Composition">
       <End Role="Composition" EntitySet="Composition" />
+      <End Role="Playlist" EntitySet="Playlist" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Playlist_UserA" Association="Self.FK_Playlist_UserA">
+      <End Role="UserA" EntitySet="UserA" />
       <End Role="Playlist" EntitySet="Playlist" />
     </AssociationSet>
   </EntityContainer>

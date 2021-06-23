@@ -12,45 +12,50 @@ using WebApi2.Models;
 
 namespace WebApi2.Controllers
 {
-    public class CompositionsAPIController : ApiController
+    public class PerformersAPIController : ApiController
     {
         private DataContext db = new DataContext();
 
-        // GET: api/CompositionsAPI
-        public IQueryable<Composition> GetCompositions()
+        // GET: api/PerformersAPI
+        public IQueryable<Performer> GetPerformers()
         {
-            return db.Compositions.AsNoTracking();
+            return db.Performers;
         }
 
-        // GET: api/CompositionsAPI/5
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult GetComposition(int id)
+        // GET: api/PerformersAPI/5
+        [ResponseType(typeof(Performer))]
+        public IHttpActionResult GetPerformer(int id)
         {
-            Composition composition = db.Compositions.Find(id);
-            if (composition == null)
+            Performer performer = db.Performers.Find(id);
+            if (performer == null)
             {
                 return NotFound();
             }
 
-            return Ok(composition);
+            return Ok(performer);
         }
 
-        // PUT: api/CompositionsAPI/5
+        // PUT: api/PerformersAPI/5
         [Authorize(Roles = "Admin")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutComposition(int id, Composition composition)
+        public IHttpActionResult PutPerformer(int id, Performer performer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != composition.ID)
+            if (performer == null)
             {
                 return BadRequest();
             }
 
-            db.Entry(composition).State = System.Data.Entity.EntityState.Modified;
+            if (id != performer.ID)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(performer).State = System.Data.Entity.EntityState.Modified;
 
             try
             {
@@ -58,7 +63,7 @@ namespace WebApi2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompositionExists(id))
+                if (!PerformerExists(id))
                 {
                     return NotFound();
                 }
@@ -71,37 +76,37 @@ namespace WebApi2.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/CompositionsAPI
-        [Authorize]
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult PostComposition(Composition composition)
+        // POST: api/PerformersAPI
+        [Authorize(Roles = "Admin")]
+        [ResponseType(typeof(Performer))]
+        public IHttpActionResult PostPerformer(Performer performer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Compositions.Add(composition);
+            db.Performers.Add(performer);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = composition.ID }, composition);
+            return CreatedAtRoute("DefaultApi", new { id = performer.ID }, performer);
         }
 
-        // DELETE: api/CompositionsAPI/5
+        // DELETE: api/PerformersAPI/5
         [Authorize(Roles = "Admin")]
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult DeleteComposition(int id)
+        [ResponseType(typeof(Performer))]
+        public IHttpActionResult DeletePerformer(int id)
         {
-            Composition composition = db.Compositions.Find(id);
-            if (composition == null)
+            Performer performer = db.Performers.Find(id);
+            if (performer == null)
             {
                 return NotFound();
             }
 
-            db.Compositions.Remove(composition);
+            db.Performers.Remove(performer);
             db.SaveChanges();
 
-            return Ok(composition);
+            return Ok(performer);
         }
 
         protected override void Dispose(bool disposing)
@@ -113,9 +118,9 @@ namespace WebApi2.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CompositionExists(int id)
+        private bool PerformerExists(int id)
         {
-            return db.Compositions.Count(e => e.ID == id) > 0;
+            return db.Performers.Count(e => e.ID == id) > 0;
         }
     }
 }

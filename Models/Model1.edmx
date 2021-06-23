@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MusicCatalogNew2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище MusicCatalogNew2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Composition">
           <Key>
             <PropertyRef Name="ID" />
@@ -133,6 +133,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Playlist_UserA">
+          <End Role="UserA" Type="Self.UserA" Multiplicity="1" />
+          <End Role="Playlist" Type="Self.Playlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Playlist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище MusicCatalogNew2ModelContainer">
           <EntitySet Name="Composition" EntityType="Self.Composition" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Compositor" EntityType="Self.Compositor" Schema="dbo" store:Type="Tables" />
@@ -161,9 +173,12 @@
             <End Role="Composition" EntitySet="Composition" />
             <End Role="Playlist" EntitySet="Playlist" />
           </AssociationSet>
+          <AssociationSet Name="FK_Playlist_UserA" Association="Self.FK_Playlist_UserA">
+            <End Role="UserA" EntitySet="UserA" />
+            <End Role="Playlist" EntitySet="Playlist" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MusicCatalogNew2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -223,6 +238,7 @@
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="CompositionID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Composition" Relationship="Self.FK_Playlist_Composition" FromRole="Playlist" ToRole="Composition" />
+          <NavigationProperty Name="UserA" Relationship="MusicCatalogNew2Model.FK_Playlist_UserA" FromRole="Playlist" ToRole="UserA" />
         </EntityType>
         <EntityType Name="RecordCompany">
           <Key>
@@ -244,6 +260,7 @@
           <Property Name="UserFullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UserAdress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UserPhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Playlists" Relationship="MusicCatalogNew2Model.FK_Playlist_UserA" FromRole="UserA" ToRole="Playlist" />
         </EntityType>
         <Association Name="FK_Composition_Compositor">
           <End Role="Compositor" Type="Self.Compositor" Multiplicity="1" />
@@ -333,7 +350,23 @@
             <End Role="Composition" EntitySet="Compositions" />
             <End Role="Playlist" EntitySet="Playlists" />
           </AssociationSet>
+          <AssociationSet Name="FK_Playlist_UserA" Association="MusicCatalogNew2Model.FK_Playlist_UserA">
+            <End Role="UserA" EntitySet="UserAs" />
+            <End Role="Playlist" EntitySet="Playlists" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Playlist_UserA">
+          <End Type="MusicCatalogNew2Model.UserA" Role="UserA" Multiplicity="1" />
+          <End Type="MusicCatalogNew2Model.Playlist" Role="Playlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Playlist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

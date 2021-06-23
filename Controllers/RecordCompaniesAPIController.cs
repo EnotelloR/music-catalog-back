@@ -12,45 +12,45 @@ using WebApi2.Models;
 
 namespace WebApi2.Controllers
 {
-    public class CompositionsAPIController : ApiController
+    public class RecordCompaniesAPIController : ApiController
     {
         private DataContext db = new DataContext();
 
-        // GET: api/CompositionsAPI
-        public IQueryable<Composition> GetCompositions()
+        // GET: api/RecordCompaniesAPI
+        public IQueryable<RecordCompany> GetRecordCompanies()
         {
-            return db.Compositions.AsNoTracking();
+            return db.RecordCompanies;
         }
 
-        // GET: api/CompositionsAPI/5
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult GetComposition(int id)
+        // GET: api/RecordCompaniesAPI/5
+        [ResponseType(typeof(RecordCompany))]
+        public IHttpActionResult GetRecordCompany(int id)
         {
-            Composition composition = db.Compositions.Find(id);
-            if (composition == null)
+            RecordCompany recordCompany = db.RecordCompanies.Find(id);
+            if (recordCompany == null)
             {
                 return NotFound();
             }
 
-            return Ok(composition);
+            return Ok(recordCompany);
         }
 
-        // PUT: api/CompositionsAPI/5
+        // PUT: api/RecordCompaniesAPI/5
         [Authorize(Roles = "Admin")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutComposition(int id, Composition composition)
+        public IHttpActionResult PutRecordCompany(int id, RecordCompany recordCompany)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != composition.ID)
+            if (id != recordCompany.ID)
             {
                 return BadRequest();
             }
 
-            db.Entry(composition).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(recordCompany).State = System.Data.Entity.EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace WebApi2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompositionExists(id))
+                if (!RecordCompanyExists(id))
                 {
                     return NotFound();
                 }
@@ -71,37 +71,37 @@ namespace WebApi2.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/CompositionsAPI
-        [Authorize]
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult PostComposition(Composition composition)
+        // POST: api/RecordCompaniesAPI
+        [Authorize(Roles = "Admin")]
+        [ResponseType(typeof(RecordCompany))]
+        public IHttpActionResult PostRecordCompany(RecordCompany recordCompany)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Compositions.Add(composition);
+            db.RecordCompanies.Add(recordCompany);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = composition.ID }, composition);
+            return CreatedAtRoute("DefaultApi", new { id = recordCompany.ID }, recordCompany);
         }
 
-        // DELETE: api/CompositionsAPI/5
+        // DELETE: api/RecordCompaniesAPI/5
         [Authorize(Roles = "Admin")]
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult DeleteComposition(int id)
+        [ResponseType(typeof(RecordCompany))]
+        public IHttpActionResult DeleteRecordCompany(int id)
         {
-            Composition composition = db.Compositions.Find(id);
-            if (composition == null)
+            RecordCompany recordCompany = db.RecordCompanies.Find(id);
+            if (recordCompany == null)
             {
                 return NotFound();
             }
 
-            db.Compositions.Remove(composition);
+            db.RecordCompanies.Remove(recordCompany);
             db.SaveChanges();
 
-            return Ok(composition);
+            return Ok(recordCompany);
         }
 
         protected override void Dispose(bool disposing)
@@ -113,9 +113,9 @@ namespace WebApi2.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CompositionExists(int id)
+        private bool RecordCompanyExists(int id)
         {
-            return db.Compositions.Count(e => e.ID == id) > 0;
+            return db.RecordCompanies.Count(e => e.ID == id) > 0;
         }
     }
 }

@@ -12,45 +12,45 @@ using WebApi2.Models;
 
 namespace WebApi2.Controllers
 {
-    public class CompositionsAPIController : ApiController
+    public class GenresAPIController : ApiController
     {
         private DataContext db = new DataContext();
 
-        // GET: api/CompositionsAPI
-        public IQueryable<Composition> GetCompositions()
+        // GET: api/GenresAPI
+        public IQueryable<Genre> GetGenres()
         {
-            return db.Compositions.AsNoTracking();
+            return db.Genres;
         }
 
-        // GET: api/CompositionsAPI/5
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult GetComposition(int id)
+        // GET: api/GenresAPI/5
+        [ResponseType(typeof(Genre))]
+        public IHttpActionResult GetGenre(int id)
         {
-            Composition composition = db.Compositions.Find(id);
-            if (composition == null)
+            Genre genre = db.Genres.Find(id);
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return Ok(composition);
+            return Ok(genre);
         }
 
-        // PUT: api/CompositionsAPI/5
+        // PUT: api/GenresAPI/5
         [Authorize(Roles = "Admin")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutComposition(int id, Composition composition)
+        public IHttpActionResult PutGenre(int id, Genre genre)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != composition.ID)
+            if (id != genre.ID)
             {
                 return BadRequest();
             }
 
-            db.Entry(composition).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(genre).State = System.Data.Entity.EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace WebApi2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompositionExists(id))
+                if (!GenreExists(id))
                 {
                     return NotFound();
                 }
@@ -71,37 +71,37 @@ namespace WebApi2.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/CompositionsAPI
-        [Authorize]
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult PostComposition(Composition composition)
+        // POST: api/GenresAPI
+        [Authorize(Roles = "Admin")]
+        [ResponseType(typeof(Genre))]
+        public IHttpActionResult PostGenre(Genre genre)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Compositions.Add(composition);
+            db.Genres.Add(genre);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = composition.ID }, composition);
+            return CreatedAtRoute("DefaultApi", new { id = genre.ID }, genre);
         }
 
-        // DELETE: api/CompositionsAPI/5
+        // DELETE: api/GenresAPI/5
         [Authorize(Roles = "Admin")]
-        [ResponseType(typeof(Composition))]
-        public IHttpActionResult DeleteComposition(int id)
+        [ResponseType(typeof(Genre))]
+        public IHttpActionResult DeleteGenre(int id)
         {
-            Composition composition = db.Compositions.Find(id);
-            if (composition == null)
+            Genre genre = db.Genres.Find(id);
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            db.Compositions.Remove(composition);
+            db.Genres.Remove(genre);
             db.SaveChanges();
 
-            return Ok(composition);
+            return Ok(genre);
         }
 
         protected override void Dispose(bool disposing)
@@ -113,9 +113,9 @@ namespace WebApi2.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CompositionExists(int id)
+        private bool GenreExists(int id)
         {
-            return db.Compositions.Count(e => e.ID == id) > 0;
+            return db.Genres.Count(e => e.ID == id) > 0;
         }
     }
 }

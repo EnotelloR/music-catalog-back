@@ -194,9 +194,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CompositionsAPIController.cs" />
+    <Compile Include="Controllers\CompositorsAPIController.cs" />
+    <Compile Include="Controllers\GenresAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PerformersAPIController.cs" />
+    <Compile Include="Controllers\PlaylistsAPIController.cs" />
+    <Compile Include="Controllers\RecordCompaniesAPIController.cs" />
     <Compile Include="Controllers\UserAsAPIController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Models\Composition.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
