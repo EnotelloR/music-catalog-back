@@ -104,7 +104,14 @@ namespace WebApi2.Controllers
             }
 
             db.UserAs.Remove(userA);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return BadRequest();
+            }
 
             return Ok(userA);
         }

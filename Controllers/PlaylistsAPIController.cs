@@ -114,20 +114,37 @@ namespace WebApi2.Controllers
         }
 
         // DELETE: api/PlaylistsAPI/5
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [ResponseType(typeof(Playlist))]
         public IHttpActionResult DeletePlaylist(int id)
         {
-            Playlist playlist = db.Playlists.Find(id);
-            if (playlist == null)
+            var identity = (ClaimsIdentity)User.Identity;
+            var role = identity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+            if (role.First() != "Admin")
             {
-                return NotFound();
+                var stringID = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value);
+                int intId = int.Parse(stringID.FirstOrDefault());
+                Playlist playlist = db.Playlists.Where(p => p.UserID == intId && p.ID == id).First();
+                if (playlist == null)
+                {
+                    return NotFound();
+                }
+                db.Playlists.Remove(playlist);
+                db.SaveChanges();
+
+                return Ok(playlist);
             }
+            else {
+                Playlist playlist = db.Playlists.Find(id);
+                if (playlist == null)
+                {
+                   return NotFound();
+                }
+                db.Playlists.Remove(playlist);
+                db.SaveChanges();
 
-            db.Playlists.Remove(playlist);
-            db.SaveChanges();
-
-            return Ok(playlist);
+                return Ok(playlist);
+            }
         }
 
         protected override void Dispose(bool disposing)

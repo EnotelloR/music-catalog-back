@@ -99,7 +99,14 @@ namespace WebApi2.Controllers
             }
 
             db.RecordCompanies.Remove(recordCompany);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(DbUpdateException)
+            {
+                return BadRequest();
+            }
 
             return Ok(recordCompany);
         }

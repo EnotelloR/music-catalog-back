@@ -99,7 +99,14 @@ namespace WebApi2.Controllers
             }
 
             db.Compositions.Remove(composition);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return BadRequest();
+            }
 
             return Ok(composition);
         }

@@ -104,7 +104,14 @@ namespace WebApi2.Controllers
             }
 
             db.Performers.Remove(performer);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return BadRequest();
+            }
 
             return Ok(performer);
         }

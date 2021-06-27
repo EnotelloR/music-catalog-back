@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище MusicCatalogNew2ModelContainer" CdmEntityContainer="DataContext">
+    <EntitySetMapping Name="Compositions">
+      <EntityTypeMapping TypeName="MusicCatalogNew2Model.Composition">
+        <MappingFragment StoreEntitySet="Composition">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CompositionName" ColumnName="CompositionName" />
+          <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+          <ScalarProperty Name="PerformerID" ColumnName="PerformerID" />
+          <ScalarProperty Name="CompositorID" ColumnName="CompositorID" />
+          <ScalarProperty Name="RecordCompanyID" ColumnName="RecordCompanyID" />
+          <ScalarProperty Name="MediaType" ColumnName="MediaType" />
+          <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Views" ColumnName="Views" />
+          <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Compositors">
+      <EntityTypeMapping TypeName="MusicCatalogNew2Model.Compositor">
+        <MappingFragment StoreEntitySet="Compositor">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CompositorName" ColumnName="CompositorName" />
+          <ScalarProperty Name="CompositorCountry" ColumnName="CompositorCountry" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Genres">
+      <EntityTypeMapping TypeName="MusicCatalogNew2Model.Genre">
+        <MappingFragment StoreEntitySet="Genre">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+          <ScalarProperty Name="GenreDescription" ColumnName="GenreDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Performers">
+      <EntityTypeMapping TypeName="MusicCatalogNew2Model.Performer">
+        <MappingFragment StoreEntitySet="Performer">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PerformerName" ColumnName="PerformerName" />
+          <ScalarProperty Name="PerformerMembers" ColumnName="PerformerMembers" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Playlists">
+      <EntityTypeMapping TypeName="MusicCatalogNew2Model.Playlist">
+        <MappingFragment StoreEntitySet="Playlist">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CompositionID" ColumnName="CompositionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RecordCompanies">
+      <EntityTypeMapping TypeName="MusicCatalogNew2Model.RecordCompany">
+        <MappingFragment StoreEntitySet="RecordCompany">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="RecordCompanyName" ColumnName="RecordCompanyName" />
+          <ScalarProperty Name="RecordCompanyAdress" ColumnName="RecordCompanyAdress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAs">
+      <EntityTypeMapping TypeName="MusicCatalogNew2Model.UserA">
+        <MappingFragment StoreEntitySet="UserA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+          <ScalarProperty Name="UserAdress" ColumnName="UserAdress" />
+          <ScalarProperty Name="UserPhoneNumber" ColumnName="UserPhoneNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

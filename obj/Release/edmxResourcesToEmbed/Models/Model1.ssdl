@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище MusicCatalogNew2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Composition">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompositionName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="GenreID" Type="int" Nullable="false" />
+    <Property Name="PerformerID" Type="int" Nullable="false" />
+    <Property Name="CompositorID" Type="int" Nullable="false" />
+    <Property Name="RecordCompanyID" Type="int" Nullable="false" />
+    <Property Name="MediaType" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RecordDate" Type="date" Nullable="false" />
+    <Property Name="Duration" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Views" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ImgUrl" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Compositor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompositorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CompositorCountry" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Genre">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GenreName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="GenreDescription" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Performer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PerformerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PerformerMembers" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Playlist">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="CompositionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RecordCompany">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RecordCompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RecordCompanyAdress" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="UserA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserRole" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserFullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="UserAdress" Type="nvarchar" MaxLength="100" />
+    <Property Name="UserPhoneNumber" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Composition_Compositor">
+    <End Role="Compositor" Type="Self.Compositor" Multiplicity="1" />
+    <End Role="Composition" Type="Self.Composition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Compositor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Composition">
+        <PropertyRef Name="CompositorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Composition_Genre">
+    <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
+    <End Role="Composition" Type="Self.Composition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Composition">
+        <PropertyRef Name="GenreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Composition_Performer">
+    <End Role="Performer" Type="Self.Performer" Multiplicity="1" />
+    <End Role="Composition" Type="Self.Composition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Performer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Composition">
+        <PropertyRef Name="PerformerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Composition_RecordCompany">
+    <End Role="RecordCompany" Type="Self.RecordCompany" Multiplicity="1" />
+    <End Role="Composition" Type="Self.Composition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RecordCompany">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Composition">
+        <PropertyRef Name="RecordCompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Playlist_Composition">
+    <End Role="Composition" Type="Self.Composition" Multiplicity="1" />
+    <End Role="Playlist" Type="Self.Playlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Composition">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Playlist">
+        <PropertyRef Name="CompositionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Playlist_UserA">
+    <End Role="UserA" Type="Self.UserA" Multiplicity="1" />
+    <End Role="Playlist" Type="Self.Playlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Playlist">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище MusicCatalogNew2ModelContainer">
+    <EntitySet Name="Composition" EntityType="Self.Composition" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Compositor" EntityType="Self.Compositor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Performer" EntityType="Self.Performer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Playlist" EntityType="Self.Playlist" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RecordCompany" EntityType="Self.RecordCompany" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserA" EntityType="Self.UserA" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Composition_Compositor" Association="Self.FK_Composition_Compositor">
+      <End Role="Compositor" EntitySet="Compositor" />
+      <End Role="Composition" EntitySet="Composition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Composition_Genre" Association="Self.FK_Composition_Genre">
+      <End Role="Genre" EntitySet="Genre" />
+      <End Role="Composition" EntitySet="Composition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Composition_Performer" Association="Self.FK_Composition_Performer">
+      <End Role="Performer" EntitySet="Performer" />
+      <End Role="Composition" EntitySet="Composition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Composition_RecordCompany" Association="Self.FK_Composition_RecordCompany">
+      <End Role="RecordCompany" EntitySet="RecordCompany" />
+      <End Role="Composition" EntitySet="Composition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Playlist_Composition" Association="Self.FK_Playlist_Composition">
+      <End Role="Composition" EntitySet="Composition" />
+      <End Role="Playlist" EntitySet="Playlist" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Playlist_UserA" Association="Self.FK_Playlist_UserA">
+      <End Role="UserA" EntitySet="UserA" />
+      <End Role="Playlist" EntitySet="Playlist" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
