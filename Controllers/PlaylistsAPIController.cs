@@ -25,6 +25,19 @@ namespace WebApi2.Controllers
             return db.Playlists.AsNoTracking();
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        [Route("api/GetTopPlaylist")]
+        public IHttpActionResult GetTopPlaylist()
+        {
+            var playlist = db.Playlists.GroupBy(p => p.Composition.CompositionName).Select(g => new { g.Key, Count = g.Count() }).OrderByDescending(p => p.Count);
+            if (playlist == null)
+            {
+                return NotFound();
+            }
+            return Ok(playlist);
+        }
+
         [Authorize]
         [HttpGet]
         [Route("api/GetMyPlaylist")]

@@ -71,6 +71,58 @@ namespace WebApi2.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [HttpPut]
+        [Route("api/ChangePassword")]
+        [Authorize]
+        // PUT: api/ChangePassword/
+        [ResponseType(typeof(void))]
+        public IHttpActionResult ChangePassword(int id, string oldPassword, string newPassword)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            UserA userA = db.UserAs.Find(id);
+
+            if (userA == null)
+            {
+                return NotFound();
+            }
+
+            else
+            {
+                if (userA.UserPassword == oldPassword)
+                {
+                    userA.UserPassword = newPassword;
+                }
+                else
+                {
+                    return BadRequest("Wrong password");
+                }
+            }
+
+            db.Entry(userA).State = System.Data.Entity.EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserAExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         // POST: api/UserAsAPI
         [ResponseType(typeof(UserA))]
         public IHttpActionResult PostUserA(UserA userA)
