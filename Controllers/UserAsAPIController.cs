@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -76,8 +77,12 @@ namespace WebApi2.Controllers
         [Authorize]
         // PUT: api/ChangePassword/
         [ResponseType(typeof(void))]
-        public IHttpActionResult ChangePassword(int id, string oldPassword, string newPassword)
+        public IHttpActionResult ChangePassword(string oldPassword, string newPassword)
         {
+            var identity = (ClaimsIdentity)User.Identity;
+            var stringID = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value);
+            int id = int.Parse(stringID.FirstOrDefault());
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
