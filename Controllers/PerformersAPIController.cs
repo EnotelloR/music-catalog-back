@@ -36,7 +36,7 @@ namespace WebApi2.Controllers
         }
 
         // PUT: api/PerformersAPI/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPerformer(int id, Performer performer)
         {
@@ -77,7 +77,7 @@ namespace WebApi2.Controllers
         }
 
         // POST: api/PerformersAPI
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(Performer))]
         public IHttpActionResult PostPerformer(Performer performer)
         {
@@ -93,7 +93,7 @@ namespace WebApi2.Controllers
         }
 
         // DELETE: api/PerformersAPI/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(Performer))]
         public IHttpActionResult DeletePerformer(int id)
         {

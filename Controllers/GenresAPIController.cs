@@ -36,7 +36,7 @@ namespace WebApi2.Controllers
         }
 
         // PUT: api/GenresAPI/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutGenre(int id, Genre genre)
         {
@@ -72,7 +72,7 @@ namespace WebApi2.Controllers
         }
 
         // POST: api/GenresAPI
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(Genre))]
         public IHttpActionResult PostGenre(Genre genre)
         {
@@ -88,7 +88,7 @@ namespace WebApi2.Controllers
         }
 
         // DELETE: api/GenresAPI/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(Genre))]
         public IHttpActionResult DeleteGenre(int id)
         {

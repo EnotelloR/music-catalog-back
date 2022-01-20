@@ -19,13 +19,13 @@ namespace WebApi2.Controllers
         private DataContext db = new DataContext();
 
         // GET: api/PlaylistsAPI
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         public IQueryable<Playlist> GetPlaylists()
         {
             return db.Playlists.AsNoTracking();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [HttpGet]
         [Route("api/GetTopPlaylist")]
         public IHttpActionResult GetTopPlaylist()
@@ -56,7 +56,7 @@ namespace WebApi2.Controllers
         }
 
         // GET: api/PlaylistsAPI/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(Playlist))]
         public IHttpActionResult GetPlaylist(int id)
         {
@@ -70,7 +70,7 @@ namespace WebApi2.Controllers
         }
 
         // PUT: api/PlaylistsAPI/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPlaylist(int id, Playlist playlist)
         {

@@ -36,7 +36,7 @@ namespace WebApi2.Controllers
         }
 
         // PUT: api/RecordCompaniesAPI/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutRecordCompany(int id, RecordCompany recordCompany)
         {
@@ -72,7 +72,7 @@ namespace WebApi2.Controllers
         }
 
         // POST: api/RecordCompaniesAPI
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(RecordCompany))]
         public IHttpActionResult PostRecordCompany(RecordCompany recordCompany)
         {
@@ -88,7 +88,7 @@ namespace WebApi2.Controllers
         }
 
         // DELETE: api/RecordCompaniesAPI/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(RecordCompany))]
         public IHttpActionResult DeleteRecordCompany(int id)
         {

@@ -17,13 +17,33 @@ namespace WebApi2.Controllers
     public class UserAsAPIController : ApiController
     {
         private DataContext db = new DataContext();
-        [Authorize(Roles = "Admin")]
+
+        [Authorize(Roles = "Admin, MainAdmin")]
         // GET: api/UserAsAPI
         public IQueryable<UserA> GetUserAs()
         {
             return db.UserAs;
         }
-        [Authorize(Roles = "Admin")]
+
+        [Authorize(Roles = "MainAdmin")]
+        [HttpGet]
+        [Route("api/GetAdmins")]
+        // GET: api/GetAdmins
+        public IQueryable<UserA> GetAdmins()
+        {
+            return db.UserAs.Where(user => user.UserRole == "Admin");
+        }
+
+        [Authorize(Roles = "MainAdmin")]
+        [HttpGet]
+        [Route("api/GetNotAdmins")]
+        // GET: api/GetNotAdmins
+        public IQueryable<UserA> GetNotAdmins()
+        {
+            return db.UserAs.Where(user => user.UserRole == "User");
+        }
+
+        [Authorize(Roles = "Admin, MainAdmin")]
         // GET: api/UserAsAPI/5
         [ResponseType(typeof(UserA))]
         public IHttpActionResult GetUserA(int id)
@@ -36,7 +56,8 @@ namespace WebApi2.Controllers
 
             return Ok(userA);
         }
-        [Authorize(Roles = "Admin")]
+
+        [Authorize(Roles = "Admin, MainAdmin")]
         // PUT: api/UserAsAPI/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutUserA(int id, UserA userA)
@@ -92,7 +113,7 @@ namespace WebApi2.Controllers
 
             if (userA == null)
             {
-                return NotFound();
+                return Unauthorized();
             }
 
             else
@@ -105,6 +126,51 @@ namespace WebApi2.Controllers
                 {
                     return BadRequest("Wrong password");
                 }
+            }
+
+            db.Entry(userA).State = System.Data.Entity.EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserAExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [HttpPut]
+        [Route("api/AddAdmin")]
+        [Authorize(Roles = "MainAdmin")]
+        // PUT: api/AddAdmin/1
+        [ResponseType(typeof(void))]
+        public IHttpActionResult AddAdmin(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            UserA userA = db.UserAs.Find(id);
+
+            if (userA == null)
+            {
+                return NotFound();
+            }
+
+            else
+            {
+                userA.UserRole = "Admin";
             }
 
             db.Entry(userA).State = System.Data.Entity.EntityState.Modified;
@@ -149,7 +215,8 @@ namespace WebApi2.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = userA.ID }, userA);
         }
-        [Authorize(Roles = "Admin")]
+
+        [Authorize(Roles = "Admin, MainAdmin")]
         // DELETE: api/UserAsAPI/5
         [ResponseType(typeof(UserA))]
         public IHttpActionResult DeleteUserA(int id)
@@ -170,6 +237,30 @@ namespace WebApi2.Controllers
                 return BadRequest();
             }
 
+            return Ok(userA);
+        }
+
+        [HttpPut]
+        [Route("api/DeleteAdmin")]
+        [Authorize(Roles = "MainAdmin")]
+        // DELETE: api/DeleteAdmin/5
+        [ResponseType(typeof(UserA))]
+        public IHttpActionResult DeleteAdmin(int id)
+        {
+            UserA userA = db.UserAs.Find(id);
+            if (userA == null)
+            {
+                return NotFound();
+            }
+            userA.UserRole = "User";
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return BadRequest();
+            }
             return Ok(userA);
         }
 

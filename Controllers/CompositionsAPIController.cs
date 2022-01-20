@@ -36,7 +36,7 @@ namespace WebApi2.Controllers
         }
 
         // PUT: api/CompositionsAPI/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutComposition(int id, Composition composition)
         {
@@ -72,7 +72,7 @@ namespace WebApi2.Controllers
         }
 
         // POST: api/CompositionsAPI
-        [Authorize]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(Composition))]
         public IHttpActionResult PostComposition(Composition composition)
         {
@@ -88,7 +88,7 @@ namespace WebApi2.Controllers
         }
 
         // DELETE: api/CompositionsAPI/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, MainAdmin")]
         [ResponseType(typeof(Composition))]
         public IHttpActionResult DeleteComposition(int id)
         {
